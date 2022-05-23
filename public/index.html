@@ -40,10 +40,11 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://vsecoder-r.herokuapp.com/socket.io/socket.io.js"></script>
   <script>
-    var socket = io();
+    var socket = io('ws://vsecoder-r.herokuapp.com');
     socket.on('online', function(text) {
+      console.log(text);
       var online = document.querySelectorAll('#online');
       for (let index = 0; index < online.length; index++) {
         const element = online[index];
