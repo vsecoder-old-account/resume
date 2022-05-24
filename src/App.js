@@ -2,9 +2,8 @@ import './App.css';
 
 // Threejs example: threejs.org/examples/?q=asc#webgl_effects_ascii
 
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, useCursor } from '@react-three/drei'
 import { AsciiEffect } from 'three-stdlib'
 
 function Torusknot(props) {
