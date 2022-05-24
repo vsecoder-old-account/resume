@@ -1,5 +1,24 @@
 import './App.css';
 
+// Threejs example: threejs.org/examples/?q=asc#webgl_effects_ascii
+
+import { useEffect, useRef, useState, useMemo } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { OrbitControls, useCursor } from '@react-three/drei'
+import { AsciiEffect } from 'three-stdlib'
+
+function Torusknot(props) {
+  const ref = useRef()
+  useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 2))
+  return (
+    <mesh {...props} ref={ref}>
+      <torusKnotGeometry args={[2, 0.3, 149, 32]} />
+      <meshStandardMaterial color="orange" />
+    </mesh>
+  )
+}
+
+
 let header, hr, l;
 let vsecoder_big = `
                                 _
@@ -23,34 +42,82 @@ function App() {
   }
 
   return (
-    <page>
-      <header>
-        <pre><h>{header}</h> {l} <b>resume</b></pre> 
-        <p><b id="online">Only you read this page(</b></p>
-        <p>[<a href="https://t.me/vsecoder">Telegram</a>]   [<a href="https://github.com/vsecoder">Github</a>]</p>
-      </header>
-      <p className='line'>{hr}</p>
-      <main>
-        <b>Web design, JavaScript, Python</b>
-        <p>Hello, I'm a developer! I have been developing since an early age, and I fell in love with coding.</p>
-        <p>My resume contains a bunch of different rubbish that I'm too lazy to list, it's better to look at Github for yourself)))</p>
-        <p>P.S. this whole page is written for the sake of interest without any special styles on React.js and Socket.io!</p>
-      </main>
-      <p className='line'>{hr}</p>
-      <footer>
-        <p> More links:<br />
-          [<a href="https://github.com/vsecoder/resume">PAGE SOURCES</a>]
-          [<a href="https://t.me/vsecoder_bio">BIO</a>]
-          [<a href="https://wakatime.com/@vsecoder">WAKATIME</a>]
-          [<a href="https://t.me/C0deWizard">CHANNEL</a>]
-        </p>
-      </footer>
-      <p className='line'>{hr}</p>
-      <footer>
-        <p>Made with ❤️ by vsecoder</p>
-      </footer>
-    </page>
+    <main>
+      <section>
+        <page>
+          <header>
+            <pre><h>{header}</h> {l} <b>resume</b></pre> 
+            <p><b id="online">Only you read this page(</b></p>
+            <p>[<a href="https://t.me/vsecoder">Telegram</a>]   [<a href="https://github.com/vsecoder">Github</a>]</p>
+          </header>
+          <p className='line'>{hr}</p>
+          <main>
+            <b>Web design, JavaScript, Python</b>
+            <p>Hello, I'm a developer! I have been developing since an early age, and I fell in love with coding.</p>
+            <p>My resume contains a bunch of different rubbish that I'm too lazy to list, it's better to look at Github for yourself)))</p>
+            <p>P.S. this whole page is written for the sake of interest without any special styles on React.js, Socket.io and THREE.js!</p>
+          </main>
+          <p className='line'>{hr}</p>
+          <footer>
+            <p> More links:<br />
+              [<a href="https://github.com/vsecoder/resume">PAGE SOURCES</a>]
+              [<a href="https://t.me/vsecoder_bio">BIO</a>]
+              [<a href="https://wakatime.com/@vsecoder">WAKATIME</a>]
+              [<a href="https://t.me/C0deWizard">CHANNEL</a>]
+            </p>
+          </footer>
+          <p className='line'>{hr}</p>
+          <footer>
+            <p>Made with ❤️ by vsecoder</p>
+          </footer>
+        </page>
+      </section>
+      <Canvas>
+        <color attach="background" args={['black']} />
+        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+        <pointLight position={[-10, -10, -10]} />
+        <Torusknot />
+        <AsciiRenderer invert />
+      </Canvas>
+    </main>
   );
+}
+
+function AsciiRenderer({ renderIndex = 1, characters = ' .:-+*=&@#', ...options }) {
+  // Reactive state
+  const { size, gl, scene, camera } = useThree()
+
+  // Create effect
+  const effect = useMemo(() => {
+    const effect = new AsciiEffect(gl, characters, options)
+    effect.domElement.style.position = 'fixed'
+    effect.domElement.style.top = '0px'
+    effect.domElement.style.left = '0px'
+    effect.domElement.style.right = '0px'
+    effect.domElement.style.bottom = '0px'
+    effect.domElement.style.color = '#272822'
+    effect.domElement.style.backgroundColor = 'black'
+    effect.domElement.style.pointerEvents = 'none'
+    return effect
+  }, [characters, options.invert])
+
+  // Append on mount, remove on unmount
+  useEffect(() => {
+    gl.domElement.parentNode.appendChild(effect.domElement)
+    return () => gl.domElement.parentNode.removeChild(effect.domElement)
+  }, [effect])
+
+  // Set size
+  useEffect(() => {
+    effect.setSize(size.width, size.height)
+  }, [effect, size])
+
+  // Take over render-loop (that is what the index is for)
+  useFrame((state) => {
+    effect.render(scene, camera)
+  }, renderIndex)
+
+  // This component returns nothing, it has no view, it is a purely logical
 }
 
 export default App;
