@@ -98,22 +98,26 @@ function AsciiRenderer({ renderIndex = 1, characters = ' .:-+*=&@#', ...options 
     effect.domElement.style.backgroundColor = 'black'
     effect.domElement.style.pointerEvents = 'none'
     return effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [characters, options.invert])
 
   // Append on mount, remove on unmount
   useEffect(() => {
     gl.domElement.parentNode.appendChild(effect.domElement)
     return () => gl.domElement.parentNode.removeChild(effect.domElement)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effect])
 
   // Set size
   useEffect(() => {
     effect.setSize(size.width, size.height)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effect, size])
 
   // Take over render-loop (that is what the index is for)
   useFrame((state) => {
     effect.render(scene, camera)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, renderIndex)
 
   // This component returns nothing, it has no view, it is a purely logical
