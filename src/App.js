@@ -32,11 +32,11 @@ let vsecoder_small = '<h1>vsecoder</h1>'
 function App() {
   if (window.innerWidth >= 400) {
     header = vsecoder_big
-    hr = '-'.repeat(window.innerWidth/30)
+    hr = '-'.repeat(window.innerWidth/33)
     l = ' '.repeat(35)
   } else {
     header = vsecoder_small
-    hr = '-'.repeat(window.innerWidth/15)
+    hr = '-'.repeat(window.innerWidth/10)
     l = ''
   }
 
