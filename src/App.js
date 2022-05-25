@@ -1,7 +1,5 @@
 import './App.css';
 
-// Threejs example: threejs.org/examples/?q=asc#webgl_effects_ascii
-
 import { useEffect, useRef, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { AsciiEffect } from 'three-stdlib'
@@ -20,23 +18,23 @@ function Torusknot(props) {
 
 let header, hr, l;
 let vsecoder_big = `
-                                _
-  __   _____  ___  ___ ___   __| | ___ _ __
-  \\ \\ / / __|/ _ \\/ __/ _ \\ / _\` |/ _ \\ '__|
-   \\ V /\\__ \\  __/ (_| (_) | (_| |  __/ |
+                                _             
+  __   _____  ___  ___ ___   __| | ___ _ __   
+  \\ \\ / / __|/ _ \\/ __/ _ \\ / _\` |/ _ \\ '__|  
+   \\ V /\\__ \\  __/ (_| (_) | (_| |  __/ |     
     \\_/ |___/\\___|\\___\\___/ \\__,_|\\___|_|     
 `
 
 let vsecoder_small = '<h1>vsecoder</h1>'
 
 function App() {
-  if (window.innerWidth >= 400) {
+  if (window.innerWidth >= 450) {
     header = vsecoder_big
-    hr = '-'.repeat(window.innerWidth/33)
+    hr = '-'.repeat(60)
     l = ' '.repeat(35)
   } else {
     header = vsecoder_small
-    hr = '-'.repeat(window.innerWidth/13)
+    hr = '-'.repeat(window.innerWidth/15)
     l = ''
   }
 

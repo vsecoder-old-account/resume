@@ -77,12 +77,13 @@ footer p {
     display: block;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
     h {
       font-size: 20px;
       font-weight: bolder;
     }
-section {
-  position: absolute;
-}
+    section {
+      position: absolute;
+      max-width: 400px;
+    }
   }
