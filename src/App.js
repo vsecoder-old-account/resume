@@ -36,7 +36,7 @@ function App() {
     l = ' '.repeat(35)
   } else {
     header = vsecoder_small
-    hr = '-'.repeat(window.innerWidth/10)
+    hr = '-'.repeat(window.innerWidth/13)
     l = ''
   }
 
