@@ -46,7 +46,7 @@ function App() {
         <page>
           <header>
             <pre><h>{header}</h> {l} <b>resume</b></pre> 
-            <p><b id="online">Only you read this page(</b></p>
+            <p><b id="online">Only you read now this page(</b></p>
             <p>[<a href="https://t.me/vsecoder">Telegram</a>]   [<a href="https://github.com/vsecoder">Github</a>]</p>
           </header>
           <p className='line'>{hr}</p>
