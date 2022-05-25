@@ -16,7 +16,7 @@ npm i
 npm run build
 ```
 
-А для запуска на продашене советую:
+А для запуска на продакшене советую:
 
 ```bash
 serve -s build
@@ -25,3 +25,11 @@ serve -s build
 ## Развёртывание на Netlify
 
 https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds/
+
+### Изменить текст можно в /src/App.js
+
+## TODO
+
+1. Вынести текст в отдельный файл
+2. Провести ревью кода
+3. Добавить пасхалку)
